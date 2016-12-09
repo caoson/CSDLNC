@@ -19,7 +19,7 @@
 
     * 2. Thực hiện công việc của mình
     * 3. Khi hoàn thành thì git push lên remote origin.
-    * 4. Tiếp theo vào trang [link project](https://github.com/bistuido/CSDLNC) để tạo merge request và thông báo qua Facebook Messenger.
+    * 4. Tiếp theo vào trang [link project](https://github.com/bistuido/CSDLNC) để click vào Compare and pull request, tạo merge request và thông báo qua Facebook Messenger cho Bachdv.
     * 5. Sau khi Bachdv accept merge request thì quay về project trên máy của mình gõ: 
         **git checkout develope**
         **git fetch upstream**
