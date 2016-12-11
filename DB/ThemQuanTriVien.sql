@@ -1,6 +1,6 @@
 /* insert quan tri vien*/
 CREATE PROCEDURE spThemQuanTriVien
-@MANHANVIEN int, 
+@MANHANVIEN int
 AS
 BEGIN
 	UPDATE NHANVIEN
