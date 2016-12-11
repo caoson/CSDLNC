@@ -210,12 +210,3 @@ select * from PHANCONG
 
 select * from NHIEMVU
 
-
-CREATE PROCEDURE spDanhSachQuanTriVien
-AS
-BEGIN
-	
-		SELECT *
-		FROM NHANVIEN nv
-		WHERE  nv.QUYEN = 1
-END
