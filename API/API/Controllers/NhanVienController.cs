@@ -10,6 +10,19 @@ namespace API.Controllers
     public class NhanVienController : ApiController
     {
         #region nhanvien
+        // lay danh sach nhan vien theo id
+        [HttpGet]
+        public List<NhanVien> getListPersonnes(int manhanvien)
+        {
+            if (manhanvien != null)
+            return bd.GetlistByIdNV(manhanvien).AsEnumerable();
+        }
+        // lay all danh sach nhan vien
+        [HttpGet]
+        public List<NhanVien> getAllListPersonnes()
+        {
+            return bd.GetListAllNV().AsEnumerable();
+        }
         //them nhan vien
         [HttpGet]
         public IEnumerable<string> insertPersonnes (int manhanvien,string hoten, string bidanh, string gioitinh, int ngaysinh,string quequan,string diachi,string email,int sodienthoai, string chucvu,int maphongban, int nguoiquanly)

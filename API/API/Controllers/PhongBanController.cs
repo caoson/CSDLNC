@@ -10,6 +10,19 @@ namespace API.Controllers
     public class PhongBanController : ApiController
     {
         #region phongban
+        // lay danh sach phong ban theo id
+        [HttpGet]
+        public List<PHONGBAN> getListDepartment(int maphongban)
+        {
+            if (maphongban != null)
+                return bd.GetlistByIdPB(maphongban).AsEnumerable();
+        }
+        // lay all danh sach phong ban
+        [HttpGet]
+        public List<PHONGBAN> getAllListDepartment()
+        {
+            return bd.GetListAllPB().AsEnumerable();
+        }
         // them phong ban
         [HttpGet]
         public IEnumerable<string> insertDepartment(int maphongban, int matruongphong, string tenphongban, string vaitro, string mota)

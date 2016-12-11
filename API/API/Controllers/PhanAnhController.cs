@@ -10,6 +10,19 @@ namespace API.Controllers
     public class PhanAnhController : ApiController
     {
         #region phan anh
+        // lay danh sach nhiem vu theo id
+        [HttpGet]
+        public List<PHANANH> getListFeedback(int maphananh)
+        {
+            if (maphananh != null)
+                return bd.GetlistByIdPA(maphananh).AsEnumerable();
+        }
+        // lay all danh sach nhiem vu
+        [HttpGet]
+        public List<PHANANH> getAllListFeedback()
+        {
+            return bd.GetListAllPA().AsEnumerable();
+        }
         //them phan anh
         [HttpGet]
         public IEnumerable<string> insertFeedback(int maphananh, int nguoitao, string tieude, string noidung, int thoigiantao, string tailieudinhkem, int nguoinhan, string capdo, int macongtac)

@@ -10,6 +10,19 @@ namespace API.Controllers
     public class PhanCongController : ApiController
     {
         #region phan cong
+        // lay danh sach phan cong theo id
+        [HttpGet]
+        public List<PHANCONG> getListDivision(int maphancong)
+        {
+            if (maphancong != null)
+                return bd.GetlistByIdPA(maphancong).AsEnumerable();
+        }
+        // lay all danh sach phan cong
+        [HttpGet]
+        public List<PHANCONG> getAllListDivision()
+        {
+            return bd.GetListAllPA().AsEnumerable();
+        }
         //them phan cong
         [HttpGet]
         public IEnumerable<string> insertDivision(int maphancong, int macongtac, int manhanvien, string vaitro, string tieude, string noidung, string tailieudinhkem, int thoigianbatdau, int thoigianketthuc, string trangthai, int tansuatnhacnho, int mucdouutien, string danhgiaphancong, int nguoitao)

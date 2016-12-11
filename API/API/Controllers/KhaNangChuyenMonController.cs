@@ -10,6 +10,19 @@ namespace API.Controllers
     public class KhaNangChuyenMonController : ApiController
     {
         #region kha nang chuyen mon
+        // lay danh sach kha nang chuyen mon theo id
+        [HttpGet]
+        public List<KhaNangChuyenmon> getListSpecialize(int makhanang)
+        {
+            if (makhanang != null) makhanang = 0;
+            return bd.GetlistByIdKNCM(makhanang).AsEnumerable();
+        }
+        // lay all danh sach kha nang chuyen mon
+        [HttpGet]
+        public List<KhaNangChuyenmon> getAllListSpecialize()
+        {
+            return bd.GetListAllKNCM().AsEnumerable();
+        }
         // them kha nang chuyen mon
         [HttpGet]
         public IEnumerable<string> insertSpecialize(int makhanang, string tenkhanang, string mota)
