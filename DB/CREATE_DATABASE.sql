@@ -38,10 +38,15 @@ CHUCVU NVARCHAR(50),
 QUYEN INT,
 MATKHAU NVARCHAR(300),
 TRANGTHAITK INT,
-
+ MANGUOIQUANLY INT REFERENCES NHANVIEN(MANHANVIEN),
  MAKHANANG	INT REFERENCES KNCHUYENMON(MAKHANANG)
 )
 
+CREATE TABLE KHANANG_NHANVIEN
+(
+  MANHANVIEN INT REFERENCES NHANVIEN(MANHANVIEN),
+  MAKHANANG	INT REFERENCES KNCHUYENMON(MAKHANANG)
+)
 
 
 
@@ -117,12 +122,24 @@ GO
 
 declare @id int 
 select @id = 1
-while @id >=1 and @id <= 100
+while @id >=1 and @id <= 10
 begin
     insert into PHONGBAN(MATRUONGPHONG, TENPHONGBAN) values(@id, CONCAT('PHONG BAN', @ID))
     select @id = @id + 1
 end
 select * from phongban
+
+/* INSERT  KHANANGCHUYENMON*/
+declare @idc int 
+select @idc = 1
+while @idc >=1 and @idc <= 10
+begin
+    insert into KNCHUYENMON(TENKHANNANG,MOTA) 
+	 values(CONCAT('KHANANG ', @idc),'' )
+	 select @idc =@idc + 1
+end
+/*DBCC CHECKIDENT ('[KNCHUYENMON]', RESEED, 0); */
+
 
 
 /* INSERT NHANVIEN  */
@@ -131,66 +148,108 @@ declare @ida int
 select @ida = 1
 while @ida >=1 and @ida <= 10
 begin
-    insert into NHANVIEN(HOTEN, GIOITINH, NGAYSINH , QUEQUAN,EMAIL, SODIENTHOAI, CHUCVU,MAPHONGBAN)
-	 values(CONCAT('NGUYEN VAN ', @ida), 'NAM', 123456,'HANOI', CONCAT('nguyenvan',@ida,'@tmail.com'),012345678 + @ida, 'NHAN VIEN', @ida)
+    insert into NHANVIEN(HOTEN, GIOITINH, NGAYSINH , QUEQUAN,EMAIL, SODIENTHOAI, CHUCVU,QUYEN, MATKHAU)
+	 values(CONCAT('NGUYEN VAN ', @ida), 'NAM', 123456,'HANOI', CONCAT('nguyenvan',@ida,'@tmail.com'),012345678 + @ida, 'TRUONG PHONG', 1, '123456')
     select @ida = @ida + 1
 end
+
+
 
 declare @idb int 
 select @idb = 10
 while @idb >=10 and @idb < 20
 begin
-    insert into NHANVIEN(HOTEN, GIOITINH, NGAYSINH , QUEQUAN,EMAIL, SODIENTHOAI, CHUCVU,MAPHONGBAN, NGUOIQUANLY)
-	 values(CONCAT('NGUYEN VAN ', @idb), 'NAM', 1234567891111,'HANOI', CONCAT('nguyenvan',@idb,'@tmail.com'),012345678 + @idb, 'NHAN VIEN', @idb, @idb -9)
-    select @idb =@idb + 1
+    insert into NHANVIEN(HOTEN, GIOITINH, NGAYSINH , QUEQUAN,EMAIL, SODIENTHOAI, CHUCVU,QUYEN, MATKHAU, MANGUOIQUANLY)
+	 values(CONCAT('NGUYEN THI ', @idb), 'NU', 123456,'HANOI', CONCAT('nguyenthi',@idb,'@tmail.com'),012345678 + @idb, 'NHANVIEN', 2, '123456' , @idb -9)
+    select @idb = @idb + 1
 end
 
-select * from NHANVIEN
 
-/* INSERT  KHANANGCHUYENMON*/
-declare @idc int 
-select @idc = 1
-while @idc >=1 and @idc < 10
-begin
-    insert into KNCHUYENMON(TENKHANNANG,MOTA) 
-	 values(CONCAT('KHANANG ', @idc),'' )
-	 select @idc =@idc + 1
-end
-/*DBCC CHECKIDENT ('[KNCHUYENMON]', RESEED, 0); */
-select * from KNCHUYENMON
+
+
 
 
 /* INSERT KHANANG_NHANVIEN */ 
 
 declare @idd int 
 select @idd = 1
-while @idd >=1 and @idd < 10
+while @idd >=1 and @idd <= 10
 begin
     insert into KHANANG_NHANVIEN(MAKHANANG,MANHANVIEN) 
 	 values(@idd, @idd )
 	 select @idd =@idd + 1
 end
+
+
+
 declare @ide int 
-select @ide = 10
-while @ide >=10 and @ide < 19
+select @ide = 11
+while @ide >=11 and @ide <= 20
 begin
-    insert into KHANANG_NHANVIEN(MAKHANANG,MANHANVIEN) 
-	 values(@ide - 9 , @ide )
+    insert into KHANANG_NHANVIEN(MANHANVIEN,MAKHANANG) 
+	 values(@ide , @ide -10 )
 	 select @ide =@ide + 1
 end
-select * from KHANANG_NHANVIEN
+
 
 /* INSERT LICHCONGTAC */
 
 declare @idf int 
-select @idf = 10
-while @idf >=10 and @idf < 20
+select @idf = 1
+while @idf >=1 and @idf <= 10
 begin
-    insert into MACONGTAC(TIEUDE, NOIDUNG, THOIGIANBANGIAO, THOIGIANPHANHOI, HANCUOIPHANHOI,TRANGTHAI, NGUOITAO)
-	 values(CONCAT('NGUYEN VAN ', @idb), 'NAM', 123456,'HANOI', CONCAT('nguyenvan',@idb,'@tmail.com'),012345678 + @idb, 'NHAN VIEN', @idb, @idb -9)
-    select @idb =@idb + 1
+    insert into LICHCONGTAC(TIEUDE, NOIDUNG, THOIGIANBANGIAO, HANCUOIPHANHOI,TRANGTHAI, NGUOITAO, NGUOINHAN)
+	 values(CONCAT('LICH CONG TAC ', @idf), CONCAT('HOAN THANH DU AN ', @idf), 123456 + @idf, 123451 + @idf  , 'CHUA HOAN THANH',  @idf, @idf + 10)
+    select @idf =@idf + 1
 end
 
+
+
+
+/* INSERT BANGPHANANH */
+
+declare @idg int 
+select @idg = 1
+while @idg >=1 and @idg <= 10
+begin
+    insert into BANGPHANANH(NGUOITAO, TIEUDE, NOIDUNG, THOIGIANTAO,NGUOINHAN, CAPDO, MACONGTAC)
+	 values(@idg , CONCAT('PHAN ANH  ', @idg), CONCAT('I AM VERY HAPPY ', @idg), 123451 + @idg  ,  @idg + 10, 'NHIEM VU', @idg)
+    select @idg =@idg + 1
+end
+
+
+
+
+
+
+
+/* INSERT PHANCONG */
+
+declare @idh int 
+select @idh = 1
+while @idh >=1 and @idh <= 10
+begin
+    insert into PHANCONG(MACONGTAC,MANHANVIEN,  NOIDUNG, THOIGIANBATDAU, THOIGIANKETTHUC,TRANGTHAI, TANSUATNHACNHO, NGUOITAO)
+	 values(@idh , @idh +10,CONCAT('PHAN CONG  ', @idh), 01 + @idh,  02  + @idh  , 'CHUA HOAN THANH ', 2 , @idh)
+    select @idh =@idh + 1
+end
+
+
+
+/* INSERT NHIEMVU */
+declare @idi int 
+select @idi = 1
+while @idi >=1 and @idi <= 10
+begin
+    insert into NHIEMVU(MAPHANCONG,TIEUDE,  NOIDUNG, THOIGIANBATDAU, THOIGIANKETTHUC,TRANGTHAI, TIENDO , TANSUATNHACNHO, MUCDOUUTIEN)
+	 values(@idi ,CONCAT('PHAN CONG  ', @idi), CONCAT( 'NOI DUNG PHAN CONG', @idi),  1 + @idi, 5 + @idi, 'DANG THUC HIEN', 10, 2, 2)
+    select @idi =@idi + 1
+end
+
+
+
+
+select * from BANGPHANANH
 
 
 
